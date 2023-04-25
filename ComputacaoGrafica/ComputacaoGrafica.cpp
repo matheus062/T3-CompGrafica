@@ -13,6 +13,10 @@ bool lightAmb = true;
 bool lightDif = true;
 bool lightSpe = true;
 
+bool light1 = true;
+bool light2 = true;
+bool light3 = true;
+
 void reshape(int w, int h)
 {
 	glViewport(0, 0, w, h);
@@ -36,11 +40,22 @@ void drawObj()
 	glRotatef(obj.rotation[1], 0, 1, 0);
 	glRotatef(obj.rotation[2], 0, 0, 1);
 
+	GLfloat pos1[] = { 0.f, 0.f, 1.f, 1.f };
+	GLfloat pos2[] = { 0.f, 0.f, 1.f, 0.f };
+	GLfloat pos3[] = { 0.5f, 0.5f, 0.f, 0.f };
+	glLightfv(GL_LIGHT0, GL_POSITION, pos1);
+	glLightfv(GL_LIGHT1, GL_POSITION, pos2);
+	glLightfv(GL_LIGHT2, GL_POSITION, pos3);
+
 	glCallList(obj.idGlList);
 	glPopMatrix();
 }
 
 void keyboard(unsigned char key, int x, int y) {
+	GLfloat a[4];
+	GLfloat d[4];
+	GLfloat s[4];
+
 	std::cout << key;
 	switch (key) {
 	case 27:
@@ -89,37 +104,115 @@ void keyboard(unsigned char key, int x, int y) {
 		obj.scaleUp();
 		break;
 	case '1':
-		lightAmb = !lightAmb;
-		float a;
-		GLfloat amb[4];
-		a = lightAmb ? 0.1f : 0.f;
-		amb[0] = a;
-		amb[1] = a;
-		amb[2] = a;
-		amb[3] = 1.f;
-		glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
+		light1 = !light1;
+
+		if (light1) {
+			a[0] = 0.1f;
+			a[1] = 0.1f;
+			a[2] = 0.1f;
+			a[3] = 1.0f;
+			d[0] = 0.8f;
+			d[1] = 0.8f;
+			d[2] = 0.8f;
+			d[3] = 1.0f;
+			s[0] = 1.0f;
+			s[1] = 1.0f;
+			s[2] = 1.0f;
+			s[3] = 1.0f;
+		}
+		else {
+			a[0] = 0.0f;
+			a[1] = 0.0f;
+			a[2] = 0.0f;
+			a[3] = 1.0f;
+			d[0] = 0.0f;
+			d[1] = 0.0f;
+			d[2] = 0.0f;
+			d[3] = 1.0f;
+			s[0] = 0.0f;
+			s[1] = 0.0f;
+			s[2] = 0.0f;
+			s[3] = 1.0f;
+		}
+
+		glLightfv(GL_LIGHT0, GL_AMBIENT, a);
+		glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
+		glLightfv(GL_LIGHT0, GL_SPECULAR, s);
+
 		break;
 	case '2':
-		float d;
-		GLfloat dif[4];
-		lightDif = !lightDif;
-		d = lightDif ? 0.8f : 0.f;
-		dif[0] = d;
-		dif[1] = d;
-		dif[2] = d;
-		dif[3] = 1.f;
-		glLightfv(GL_LIGHT0, GL_DIFFUSE, dif);
+		light2 = !light2;
+
+		if (light2) {
+			a[0] = 0.1f;
+			a[1] = 0.1f;
+			a[2] = 0.1f;
+			a[3] = 1.0f;
+			d[0] = 0.8f;
+			d[1] = 0.8f;
+			d[2] = 0.8f;
+			d[3] = 1.0f;
+			s[0] = 1.0f;
+			s[1] = 1.0f;
+			s[2] = 1.0f;
+			s[3] = 1.0f;
+		}
+		else {
+			a[0] = 0.0f;
+			a[1] = 0.0f;
+			a[2] = 0.0f;
+			a[3] = 1.0f;
+			d[0] = 0.0f;
+			d[1] = 0.0f;
+			d[2] = 0.0f;
+			d[3] = 1.0f;
+			s[0] = 0.0f;
+			s[1] = 0.0f;
+			s[2] = 0.0f;
+			s[3] = 1.0f;
+		}
+
+		glLightfv(GL_LIGHT1, GL_AMBIENT, a);
+		glLightfv(GL_LIGHT1, GL_DIFFUSE, d);
+		glLightfv(GL_LIGHT1, GL_SPECULAR, s);
+
 		break;
 	case '3':
-		float s;
-		GLfloat spe[4];
-		lightSpe = !lightSpe;
-		s = lightSpe ? 1.f : 0.f;
-		spe[0] = s;
-		spe[1] = s;
-		spe[2] = s;
-		spe[3] = 1.f;
-		glLightfv(GL_LIGHT0, GL_SPECULAR, spe);
+		light3 = !light3;
+
+		if (light3) {
+			a[0] = 0.1f;
+			a[1] = 0.1f;
+			a[2] = 0.1f;
+			a[3] = 1.0f;
+			d[0] = 0.8f;
+			d[1] = 0.8f;
+			d[2] = 0.8f;
+			d[3] = 1.0f;
+			s[0] = 1.0f;
+			s[1] = 1.0f;
+			s[2] = 1.0f;
+			s[3] = 1.0f;
+		}
+		else {
+			a[0] = 0.0f;
+			a[1] = 0.0f;
+			a[2] = 0.0f;
+			a[3] = 1.0f;
+			d[0] = 0.0f;
+			d[1] = 0.0f;
+			d[2] = 0.0f;
+			d[3] = 1.0f;
+			s[0] = 0.0f;
+			s[1] = 0.0f;
+			s[2] = 0.0f;
+			s[3] = 1.0f;
+		}
+
+		glLightfv(GL_LIGHT2, GL_AMBIENT, a);
+		glLightfv(GL_LIGHT2, GL_DIFFUSE, d);
+		glLightfv(GL_LIGHT2, GL_SPECULAR, s);
+
 		break;
 	}
 }
@@ -156,6 +249,8 @@ void initialize(int argc, char** argv) {
 	//glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT2);
 
 	float globalAmb[] = { 0.1f, 0.1f ,0.1f, 1.f };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, globalAmb);
@@ -163,12 +258,15 @@ void initialize(int argc, char** argv) {
 	GLfloat amb[] = { 0.1f, 0.1f, 0.1f, 1.f };
 	GLfloat dif[] = { 0.8f, 0.8f, 0.8f, 1.f };
 	GLfloat spe[] = { 1.f, 1.f, 1.f, 1.f };
-	GLfloat pos[] = { 0.f, 0.f, 1.f, 1.f };
-
 	glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, dif);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, spe);
-	glLightfv(GL_LIGHT0, GL_POSITION, pos);
+	glLightfv(GL_LIGHT2, GL_AMBIENT, amb);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, dif);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, spe);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, amb);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, dif);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, spe);
 
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
